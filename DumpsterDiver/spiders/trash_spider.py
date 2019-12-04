@@ -10,6 +10,9 @@ class TrashSpider(scrapy.Spider):
     visited_urls = ['http://quotes.toscrape.com/']
     
     def parse(self, response):
+        f=open("urls.txt", "a+")
+        f.write(response.url + "\n")
+        f.close()
         for new_url in response.css('a::attr(href)'):
             if new_url is not None:
                 self.log('Found new url %s' % new_url)
